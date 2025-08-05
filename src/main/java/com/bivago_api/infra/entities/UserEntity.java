@@ -1,7 +1,11 @@
 package com.bivago_api.infra.entities;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.UUID;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity(name = "User")
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +40,14 @@ public class UserEntity {
     private LocalDate birthday;
 
     private int role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() { return this.email; }
 
     // HotelEntity
     // ReservationEntity
