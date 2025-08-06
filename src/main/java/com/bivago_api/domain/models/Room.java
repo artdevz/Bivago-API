@@ -16,36 +16,43 @@ public class Room {
     private List<Reservation> reservations;
 
     public Room() {}
-    public Room(UUID id, Hotel host, int number, int capacity, BigDecimal price, int category) {
+    public Room(
+        UUID id,
+        int capacity,
+        int category,
+        int number,
+        BigDecimal price,
+        Hotel host
+    ) {
         this.id = id;
-        setHotel(host);
-        setNumber(number);
         setCapacity(capacity);
-        setPrice(price);
         setCategory(category);
+        setNumber(number);
+        setPrice(price);
+        setHost(host);
     }
 
     public UUID getId() { return id; }
-    public Hotel getHotel() { return host; }
-    public int getNumber() { return number; }
     public int getCapacity() { return capacity; }
-    public BigDecimal getPrice() { return price; }
     public int getCategory() { return category; }
+    public int getNumber() { return number; }
+    public BigDecimal getPrice() { return price; }
+    public Hotel getHost() { return host; }
 
     public List<Reservation> getReservations() { return reservations; }
-
-    public void setHotel(Hotel host) {
-        this.host = host;
-    }
-
-    public void setNumber(int number) {
-        if (number < 1) throw new IllegalArgumentException("Número do Quarto deve ser positivo absoluto");
-        this.number = number;
-    }
 
     public void setCapacity(int capacity) {
         if (capacity < 1) throw new IllegalArgumentException("Capacidade do Quarto deve ser maior que Zero");
         this.capacity = capacity;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+    
+    public void setNumber(int number) {
+        if (number < 1) throw new IllegalArgumentException("Número do Quarto deve ser positivo absoluto");
+        this.number = number;
     }
 
     public void setPrice(BigDecimal price) {
@@ -53,8 +60,8 @@ public class Room {
         this.price = price;
     }
 
-    public void setCategory(int category) {
-        this.category = category;
-    } 
+    public void setHost(Hotel host) {
+        this.host = host;
+    }
 
 }

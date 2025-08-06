@@ -24,7 +24,15 @@ public class User {
     private List<Reservation> reservations;
 
     public User() {}
-    public User(UUID id, String name, String email, String password, String cpf, LocalDate birthday, int role) {
+    public User(
+        UUID id,
+        String name,
+        String email,
+        String password,
+        String cpf,
+        LocalDate birthday,
+        int role
+    ) {
         this.id = id;
         setName(name);
         setEmail(email);

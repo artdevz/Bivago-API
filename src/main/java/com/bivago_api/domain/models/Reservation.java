@@ -15,14 +15,22 @@ public class Reservation {
     private Room room;
 
     public Reservation() {}
-    public Reservation(UUID id, User guest, Room room, LocalDate checkIn, LocalDate checkOut, int nop, BigDecimal price) {
+    public Reservation(
+        UUID id,
+        LocalDate checkIn,
+        LocalDate checkOut,
+        int nop,
+        BigDecimal price,
+        User guest,
+        Room room
+    ) {
         this.id = id;
-        setGuest(guest);
-        setRoom(room);
         setCheckIn(checkIn);
         setCheckOut(checkOut);
         setNop(nop);
         setPrice(price);
+        setGuest(guest);
+        setRoom(room);
     }
 
     public UUID getId() { return id; }
@@ -33,8 +41,6 @@ public class Reservation {
     public int getNop() { return nop; }
     public BigDecimal getPrice() { return price; }
 
-    public void setGuest(User guest) { this.guest = guest; }
-    public void setRoom(Room room) { this.room = room; }
     public void setCheckIn(LocalDate checkIn) { this.checkIn = checkIn; }
     public void setCheckOut(LocalDate checkOut) { this.checkOut = checkOut; }
 
@@ -47,5 +53,8 @@ public class Reservation {
         if (price.intValueExact() < 0) throw new IllegalArgumentException("Valor não deve menor que ZERO");
         this.price = price; 
     }
+
+    public void setGuest(User guest) { this.guest = guest; }
+    public void setRoom(Room room) { this.room = room; }
 
 }
