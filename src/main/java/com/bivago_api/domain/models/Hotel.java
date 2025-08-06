@@ -54,7 +54,7 @@ public class Hotel {
     public void setAddress(Address address) { this.address = address; }
 
     public void setOwner(User owner) {
-        if (owner.getRole() != 1) throw new IllegalArgumentException("Dono do Hotel deve ter papel de HotelOwner");
+        // if (owner.getRoles().contains("HOST")) throw new IllegalArgumentException("Dono do Hotel deve ter papel de HotelOwner");
         this.owner = owner;
     }
 

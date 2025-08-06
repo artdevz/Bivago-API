@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.bivago_api.app.dto.user.UserRequestDTO;
 import com.bivago_api.app.dto.user.UserResponseDTO;
@@ -31,6 +33,7 @@ public class UserService {
     
     @Async
     public CompletableFuture<String> create(UserRequestDTO request) {
+        ensureUniqueEmail(request.email());
         User user = requestMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User saved = userR.save(user);
@@ -66,5 +69,7 @@ public class UserService {
         userR.deleteById(id);
         return CompletableFuture.completedFuture("Usuário deletado");
     }
+
+    private void ensureUniqueEmail(String email) { if (userR.findByEmail(email).isPresent()) throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já está sendo utilizado"); }
 
 }

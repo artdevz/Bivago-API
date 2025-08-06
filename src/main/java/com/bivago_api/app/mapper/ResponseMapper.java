@@ -29,7 +29,7 @@ public class ResponseMapper {
             user.getEmail(),
             user.getCPF(),
             user.getBirthday(),
-            user.getRole()
+            user.getRoles()
         );
     }
 

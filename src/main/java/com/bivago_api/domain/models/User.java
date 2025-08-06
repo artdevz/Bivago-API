@@ -2,6 +2,7 @@ package com.bivago_api.domain.models;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class User {
@@ -18,7 +19,8 @@ public class User {
     private String password;
     private String cpf;
     private LocalDate birthday;
-    private int role;
+
+    private Set<Role> roles;
 
     private List<Hotel> hotels;
     private List<Reservation> reservations;
@@ -31,7 +33,7 @@ public class User {
         String password,
         String cpf,
         LocalDate birthday,
-        int role
+        Set<Role> roles
     ) {
         this.id = id;
         setName(name);
@@ -39,7 +41,7 @@ public class User {
         setPassword(password);
         setCPF(cpf);
         setBirthday(birthday);
-        setRole(role);
+        this.roles = roles;
     }
 
     public UUID getId() { return id; }
@@ -48,7 +50,7 @@ public class User {
     public String getPassword() { return password; }
     public String getCPF() { return cpf; }
     public LocalDate getBirthday() { return birthday; }
-    public int getRole() { return role; }
+    public Set<Role> getRoles() { return roles; }
 
     public List<Hotel> getHotels() { return hotels; }
     public List<Reservation> getReservations() { return reservations; }
@@ -80,9 +82,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    public void setRole(int role) {
-        this.role = role;
-    }
+    public void setRole(Set<Role> roles) { this.roles = roles; }
 
     private void validateEmail(String email) {
         if (!(email.matches(EMAIL_REGEX))) throw new IllegalArgumentException("Formato de Email inválido");

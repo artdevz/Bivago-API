@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,12 +30,15 @@ public class RoomEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false)
     private int capacity;
 
     private int category;
 
+    @Column(nullable = false)
     private int number;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
     @ManyToOne

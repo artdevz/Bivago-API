@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,12 +29,16 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false)
     private LocalDate checkIn;
 
+    @Column(nullable = false)
     private LocalDate checkOut;
 
+    @Column(nullable = false)
     private int nop;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
     @ManyToOne

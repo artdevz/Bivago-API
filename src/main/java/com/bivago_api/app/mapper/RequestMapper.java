@@ -1,6 +1,12 @@
 package com.bivago_api.app.mapper;
 
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.bivago_api.app.dto.hotel.HotelRequestDTO;
 import com.bivago_api.app.dto.reservation.ReservationRequestDTO;
@@ -9,9 +15,11 @@ import com.bivago_api.app.dto.user.UserRequestDTO;
 import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.domain.models.Hotel;
 import com.bivago_api.domain.models.Reservation;
+import com.bivago_api.domain.models.Role;
 import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.models.User;
 import com.bivago_api.domain.repositories.IHotelRepository;
+import com.bivago_api.domain.repositories.IRoleRepository;
 import com.bivago_api.domain.repositories.IRoomRepository;
 import com.bivago_api.domain.repositories.IUserRepository;
 
@@ -26,6 +34,7 @@ public class RequestMapper {
     private final IUserRepository userR;
     private final IHotelRepository hotelR;
     private final IRoomRepository roomR;
+    private final IRoleRepository roleR;
 
     public User toUser(UserRequestDTO request) {
         return new User(
@@ -35,7 +44,7 @@ public class RequestMapper {
             request.password(),
             request.cpf(),
             request.birthday(),
-            request.role()
+            findRoles(request.roles())
         );
     }
 
@@ -71,5 +80,7 @@ public class RequestMapper {
             finder.findByIdOrThrow(roomR.findById(request.room()), "Quarto não encontrado")
         );
     }
+
+    private Set<Role> findRoles(Set<UUID> roles) { return roles.stream().map(roleId -> roleR.findById(roleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cargo não encontrado"))).collect(Collectors.toSet()); }
 
 }
