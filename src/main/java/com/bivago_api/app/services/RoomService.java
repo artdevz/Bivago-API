@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bivago_api.app.dto.room.RoomRequestDTO;
 import com.bivago_api.app.dto.room.RoomResponseDTO;
+import com.bivago_api.app.dto.room.RoomUpdateDTO;
 import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.app.mapper.RequestMapper;
 import com.bivago_api.app.mapper.ResponseMapper;
@@ -37,7 +38,7 @@ public class RoomService {
         return responseMapper.toRoomResponseDTO(room);
     }
 
-    public String update(UUID id) {
+    public String update(UUID id, RoomUpdateDTO data) {
         Room room = finder.findByIdOrThrow(roomR.findById(id), "Quarto não encontrado");
         roomR.save(room);
         return "Quarto atualizado";

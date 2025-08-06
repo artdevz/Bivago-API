@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bivago_api.app.dto.hotel.HotelRequestDTO;
 import com.bivago_api.app.dto.hotel.HotelResponseDTO;
+import com.bivago_api.app.dto.hotel.HotelUpdateDTO;
 import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.app.mapper.RequestMapper;
 import com.bivago_api.app.mapper.ResponseMapper;
@@ -37,7 +38,7 @@ public class HotelService {
         return responseMapper.toHotelResponseDTO(hotel);
     }
 
-    public String update(UUID id) {
+    public String update(UUID id, HotelUpdateDTO data) {
         Hotel hotel = finder.findByIdOrThrow(hotelR.findById(id), "Hotel não encontrado");
 
         hotelR.save(hotel);
