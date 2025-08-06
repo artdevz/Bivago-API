@@ -1,0 +1,40 @@
+package com.bivago_api.infra.repositories;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.stereotype.Repository;
+
+import com.bivago_api.domain.models.Room;
+import com.bivago_api.domain.repositories.IRoomRepository;
+import com.bivago_api.infra.entities.RoomEntity;
+import com.bivago_api.infra.mapper.RoomEntityMapper;
+import com.bivago_api.infra.repositories.jpa.RoomJpaRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Repository
+public class RoomRepository implements IRoomRepository {
+    
+    private final RoomJpaRepository jpa;
+
+    @Override
+    public List<Room> findAll() { return jpa.findAll().stream().map(RoomEntityMapper::toDomain).toList(); }
+
+    @Override
+    public Optional<Room> findById(UUID id) { return jpa.findById(id).map(RoomEntityMapper::toDomain); }
+
+    @Override
+    public Room save(Room room) {
+        RoomEntity entity = RoomEntityMapper.toEntity(room);
+        RoomEntity saved = jpa.save(entity);
+
+        return RoomEntityMapper.toDomain(saved);
+    }
+
+    @Override
+    public void deleteById(UUID id) { jpa.deleteById(id); }
+
+}
