@@ -6,9 +6,9 @@ import java.util.UUID;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bivago_api.app.dto.UserRequestDTO;
-import com.bivago_api.app.dto.UserResponseDTO;
-import com.bivago_api.app.dto.UserUpdateDTO;
+import com.bivago_api.app.dto.user.UserRequestDTO;
+import com.bivago_api.app.dto.user.UserResponseDTO;
+import com.bivago_api.app.dto.user.UserUpdateDTO;
 import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.app.mapper.RequestMapper;
 import com.bivago_api.app.mapper.ResponseMapper;

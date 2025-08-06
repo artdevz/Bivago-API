@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.bivago_api.app.dto.UserResponseDTO;
+import com.bivago_api.app.dto.user.UserResponseDTO;
 import com.bivago_api.domain.models.User;
 
 @Component

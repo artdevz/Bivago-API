@@ -1,4 +1,4 @@
-package com.bivago_api.app.dto;
+package com.bivago_api.app.dto.user;
 
 import java.util.Optional;
 

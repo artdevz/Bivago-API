@@ -1,12 +1,11 @@
-package com.bivago_api.app.dto;
+package com.bivago_api.app.dto.user;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-public record UserResponseDTO(
-    UUID id,
+public record UserRequestDTO(
     String name,
     String email,
+    String password,
     String cpf,
     LocalDate birthday,
     int role

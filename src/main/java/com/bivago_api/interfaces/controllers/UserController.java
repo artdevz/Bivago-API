@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bivago_api.app.dto.UserRequestDTO;
-import com.bivago_api.app.dto.UserResponseDTO;
-import com.bivago_api.app.dto.UserUpdateDTO;
+import com.bivago_api.app.dto.user.UserRequestDTO;
+import com.bivago_api.app.dto.user.UserResponseDTO;
+import com.bivago_api.app.dto.user.UserUpdateDTO;
 import com.bivago_api.app.services.UserService;
 
 import jakarta.validation.Valid;
