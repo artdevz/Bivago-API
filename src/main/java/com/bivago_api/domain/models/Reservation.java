@@ -7,12 +7,12 @@ import java.util.UUID;
 public class Reservation {
     
     private UUID id;
-    private User guest;
-    private Room room;
     private LocalDate checkIn;
     private LocalDate checkOut;
     private int nop; // Number of People
     private BigDecimal price;
+    private User guest;
+    private Room room;
 
     public Reservation() {}
     public Reservation(UUID id, User guest, Room room, LocalDate checkIn, LocalDate checkOut, int nop, BigDecimal price) {

@@ -11,10 +11,10 @@ public class Hotel {
     private static final int MAX_SCORE = 5;
     
     private UUID id;
-    private User owner;
     private String name;
-    private Address address;
     private float score;
+    private Address address;
+    private User owner;
 
     private List<Room> rooms;
 

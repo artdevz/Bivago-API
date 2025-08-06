@@ -7,11 +7,11 @@ import java.util.UUID;
 public class Room {
     
     private UUID id;
-    private Hotel host;
-    private int number;
     private int capacity;
-    private BigDecimal price;
     private int category;
+    private int number;
+    private BigDecimal price;
+    private Hotel host;
 
     private List<Reservation> reservations;
 
