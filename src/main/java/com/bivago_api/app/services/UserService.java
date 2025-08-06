@@ -18,7 +18,6 @@ import com.bivago_api.app.mapper.RequestMapper;
 import com.bivago_api.app.mapper.ResponseMapper;
 import com.bivago_api.domain.models.User;
 import com.bivago_api.domain.repositories.IUserRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

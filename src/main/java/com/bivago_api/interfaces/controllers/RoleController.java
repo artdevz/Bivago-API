@@ -1,0 +1,38 @@
+package com.bivago_api.interfaces.controllers;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bivago_api.app.dto.role.RoleRequestDTO;
+import com.bivago_api.app.dto.role.RoleResponstDTO;
+import com.bivago_api.app.services.RoleService;
+import com.bivago_api.shared.utils.AsyncResultHandler;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/role")
+public class RoleController {
+    
+    private final RoleService roleS;
+
+    @PostMapping
+    public ResponseEntity<String> create(@RequestBody @Valid RoleRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(roleS.create(request)));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RoleResponstDTO>> read() {
+        return ResponseEntity.ok(AsyncResultHandler.await(roleS.readAll()));
+    }
+
+}
