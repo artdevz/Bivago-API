@@ -18,6 +18,7 @@ import com.bivago_api.app.dto.reservation.ReservationRequestDTO;
 import com.bivago_api.app.dto.reservation.ReservationResponseDTO;
 import com.bivago_api.app.dto.reservation.ReservationUpdateDTO;
 import com.bivago_api.app.services.ReservationService;
+import com.bivago_api.shared.utils.AsyncResultHandler;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,21 +32,21 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Valid ReservationRequestDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservationS.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(reservationS.create(request)));
     }
 
     @GetMapping
-    public ResponseEntity<List<ReservationResponseDTO>> readAll() { return ResponseEntity.ok(reservationS.readAll()); }
+    public ResponseEntity<List<ReservationResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readAll())); }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReservationResponseDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(reservationS.readById(id)); }
+    public ResponseEntity<ReservationResponseDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readById(id))); }
 
     @PatchMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid ReservationUpdateDTO data) {
-        return ResponseEntity.ok(reservationS.update(id, data));
+        return ResponseEntity.ok(AsyncResultHandler.await(reservationS.update(id, data)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable UUID id) { return ResponseEntity.ok(reservationS.delete(id)); }
+    public ResponseEntity<String> delete(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.delete(id))); }
 
 }

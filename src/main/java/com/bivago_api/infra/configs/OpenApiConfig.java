@@ -9,14 +9,14 @@ import io.swagger.v3.oas.models.info.Info;
 @Configuration
 public class OpenApiConfig {
     
-    // @Bean
-    // public OpenAPI customOpenAPI() {
-    //     return new OpenAPI()
-    //         .info(new Info()
-    //             .title("BivagoAPI")
-    //             .version("BETA 1.0")
-    //             .description("BivagoAPI Doc")
-    //         );
-    // }
+    @Bean
+    OpenAPI customOpenAPI() {
+        return new OpenAPI()
+            .info(new Info()
+                .title("BivagoAPI")
+                .version("BETA 1.0")
+                .description("BivagoAPI Doc")
+            );
+    }
 
 }

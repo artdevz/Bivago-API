@@ -2,7 +2,9 @@ package com.bivago_api.app.services;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.bivago_api.app.dto.room.RoomRequestDTO;
@@ -25,29 +27,34 @@ public class RoomService {
     private final ResponseMapper responseMapper;
     private final EntityFinder finder;
 
-    public String create(RoomRequestDTO request) {
+    @Async
+    public CompletableFuture<String> create(RoomRequestDTO request) {
         Room room = requestMapper.toRoom(request);
         Room saved = roomR.save(room);
-        return "Sucesso ao criar quarto: " + saved.getId();
+        return CompletableFuture.completedFuture("Sucesso ao criar quarto: " + saved.getId());
     }
 
-    public List<RoomResponseDTO> readAll() { return responseMapper.toResponseDTOList(roomR.findAll(), responseMapper::toRoomResponseDTO); }
+    @Async
+    public CompletableFuture<List<RoomResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(roomR.findAll(), responseMapper::toRoomResponseDTO)); }
 
-    public RoomResponseDTO readById(UUID id) {
+    @Async
+    public CompletableFuture<RoomResponseDTO> readById(UUID id) {
         Room room = finder.findByIdOrThrow(roomR.findById(id), "Quarto não encontrado");
-        return responseMapper.toRoomResponseDTO(room);
+        return CompletableFuture.completedFuture(responseMapper.toRoomResponseDTO(room));
     }
 
-    public String update(UUID id, RoomUpdateDTO data) {
+    @Async
+    public CompletableFuture<String> update(UUID id, RoomUpdateDTO data) {
         Room room = finder.findByIdOrThrow(roomR.findById(id), "Quarto não encontrado");
         roomR.save(room);
-        return "Quarto atualizado";
+        return CompletableFuture.completedFuture("Quarto atualizado");
     }
 
-    public String delete(UUID id) {
+    @Async
+    public CompletableFuture<String> delete(UUID id) {
         finder.findByIdOrThrow(roomR.findById(id), "Quarto não encontrado");
         roomR.deleteById(id);
-        return "Quarto deletado";
+        return CompletableFuture.completedFuture("Quarto deletado");
     }
 
 }

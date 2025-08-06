@@ -2,7 +2,9 @@ package com.bivago_api.app.services;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +29,25 @@ public class UserService {
     private final ResponseMapper responseMapper;
     public final EntityFinder finder;
     
-    public String create(UserRequestDTO request) {
+    @Async
+    public CompletableFuture<String> create(UserRequestDTO request) {
         User user = requestMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User saved = userR.save(user);
-        return "Sucesso ao criar usuário: " + saved.getId();
+        return CompletableFuture.completedFuture("Sucesso ao criar usuário: " + saved.getId());
     }
 
-    public List<UserResponseDTO> readAll() { return responseMapper.toResponseDTOList(userR.findAll(), responseMapper::toUserResponseDTO); }
+    @Async
+    public CompletableFuture<List<UserResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(userR.findAll(), responseMapper::toUserResponseDTO)); }
 
-    public UserResponseDTO readById(UUID id) {
+    @Async
+    public CompletableFuture<UserResponseDTO> readById(UUID id) {
         User user = finder.findByIdOrThrow(userR.findById(id), "Usuário não encontrado");
-        return responseMapper.toUserResponseDTO(user);
+        return CompletableFuture.completedFuture(responseMapper.toUserResponseDTO(user));
     }
 
-    public String update(UUID id, UserUpdateDTO data) {
+    @Async
+    public CompletableFuture<String> update(UUID id, UserUpdateDTO data) {
         User user = finder.findByIdOrThrow(userR.findById(id), "Usuário não encontrado");
         
         data.name().ifPresent(user::setName);
@@ -50,14 +56,15 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userR.save(user);
 
-        return "Usuário atualizado";
+        return CompletableFuture.completedFuture("Usuário atualizado");
     }
 
-    public String delete(UUID id) {
+    @Async
+    public CompletableFuture<String> delete(UUID id) {
         finder.findByIdOrThrow(userR.findById(id), "Usuário não encontrado");
 
         userR.deleteById(id);
-        return "Usuário deletado";
+        return CompletableFuture.completedFuture("Usuário deletado");
     }
 
 }
