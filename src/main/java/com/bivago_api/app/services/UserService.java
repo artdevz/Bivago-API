@@ -34,9 +34,7 @@ public class UserService {
         return "Sucesso ao criar usuário: " + saved.getId();
     }
 
-    public List<UserResponseDTO> readAll() {
-        return responseMapper.toResponseDTOList(userR.findAll(), responseMapper::toUserResponseDTO);
-    }
+    public List<UserResponseDTO> readAll() { return responseMapper.toResponseDTOList(userR.findAll(), responseMapper::toUserResponseDTO); }
 
     public UserResponseDTO readById(UUID id) {
         User user = finder.findByIdOrThrow(userR.findById(id), "Usuário não encontrado");
