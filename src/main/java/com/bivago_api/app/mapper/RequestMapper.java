@@ -52,7 +52,7 @@ public class RequestMapper {
         return new Hotel(
             null, // ID
             request.name(),
-            request.score(),
+            5.0f,
             request.address(),
             finder.findByIdOrThrow(userR.findById(request.owner()), "Usuário não encontrado")
         );
@@ -75,7 +75,6 @@ public class RequestMapper {
             request.checkIn(),
             request.checkOut(),
             request.nop(),
-            request.price(),
             finder.findByIdOrThrow(userR.findById(request.guest()), "Usuário não encontrado"),
             finder.findByIdOrThrow(roomR.findById(request.room()), "Quarto não encontrado")
         );

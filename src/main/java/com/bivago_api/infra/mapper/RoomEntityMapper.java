@@ -24,7 +24,7 @@ public class RoomEntityMapper {
         entity.setId(room.getId());
         entity.setCapacity(room.getCapacity());
         entity.setCategory(room.getCategory());
-        entity.setNumber(entity.getNumber());
+        entity.setNumber(room.getNumber());
         entity.setPrice(room.getPrice());
         entity.setHost(HotelEntityMapper.toEntity(room.getHost()));
 

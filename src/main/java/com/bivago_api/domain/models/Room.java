@@ -51,6 +51,7 @@ public class Room {
     }
     
     public void setNumber(int number) {
+        System.out.println("number" + number);
         if (number < 1) throw new IllegalArgumentException("Número do Quarto deve ser positivo absoluto");
         this.number = number;
     }

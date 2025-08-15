@@ -12,7 +12,6 @@ public class ReservationEntityMapper {
             entity.getCheckIn(),
             entity.getCheckOut(),
             entity.getNop(),
-            entity.getPrice(),
             UserEntityMapper.toDomain(entity.getGuest()),
             RoomEntityMapper.toDomain(entity.getRoom())
         );

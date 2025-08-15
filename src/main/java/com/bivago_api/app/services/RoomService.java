@@ -30,7 +30,9 @@ public class RoomService {
     @Async
     public CompletableFuture<String> create(RoomRequestDTO request) {
         Room room = requestMapper.toRoom(request);
+        System.out.println("RoomS" + room.getNumber());
         Room saved = roomR.save(room);
+        System.out.println("RoomSaved" + room.getNumber());
         return CompletableFuture.completedFuture("Sucesso ao criar quarto: " + saved.getId());
     }
 

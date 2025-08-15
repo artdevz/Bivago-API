@@ -27,6 +27,7 @@ public class RoleController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody @Valid RoleRequestDTO request) {
+        System.out.println("RoleName: " + request.name());
         return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(roleS.create(request)));
     }
 

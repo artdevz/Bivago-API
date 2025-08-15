@@ -28,7 +28,9 @@ public class RoomRepository implements IRoomRepository {
 
     @Override
     public Room save(Room room) {
+        System.out.println("RoomR1" + room.getNumber());
         RoomEntity entity = RoomEntityMapper.toEntity(room);
+        System.out.println("RoomR" + entity.getNumber());
         RoomEntity saved = jpa.save(entity);
 
         return RoomEntityMapper.toDomain(saved);

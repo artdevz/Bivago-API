@@ -12,7 +12,12 @@ public class Address {
 
     public Address() {}
     public Address(String country, String division, String city, String neighbor, String street, int number) {
-        
+        setCountry(country);
+        setDivision(division);
+        setCity(city);
+        setNeighbor(neighbor);
+        setStreet(street);
+        setNumber(number);
     }
 
     public String getCountry() { return country; }

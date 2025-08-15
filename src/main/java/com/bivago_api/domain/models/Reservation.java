@@ -20,17 +20,16 @@ public class Reservation {
         LocalDate checkIn,
         LocalDate checkOut,
         int nop,
-        BigDecimal price,
         User guest,
         Room room
     ) {
         this.id = id;
         setCheckIn(checkIn);
         setCheckOut(checkOut);
-        setNop(nop);
-        setPrice(price);
-        setGuest(guest);
         setRoom(room);
+        setNop(nop);
+        setPrice(room.getPrice().multiply(BigDecimal.valueOf(nop)));
+        setGuest(guest);
     }
 
     public UUID getId() { return id; }
@@ -41,8 +40,15 @@ public class Reservation {
     public int getNop() { return nop; }
     public BigDecimal getPrice() { return price; }
 
-    public void setCheckIn(LocalDate checkIn) { this.checkIn = checkIn; }
-    public void setCheckOut(LocalDate checkOut) { this.checkOut = checkOut; }
+    public void setCheckIn(LocalDate checkIn) { 
+        if (checkIn.isBefore(LocalDate.now())) throw new IllegalArgumentException("Reserva não deve ter data de Check-In no passado");
+        this.checkIn = checkIn; 
+    }
+
+    public void setCheckOut(LocalDate checkOut) { 
+        if (checkOut.isBefore(LocalDate.now())) throw new IllegalArgumentException("Reserva não deve ter data de Check-Out no passado");
+        this.checkOut = checkOut; 
+    }
 
     public void setNop(int nop) { 
         if (nop > room.getCapacity()) throw new IllegalArgumentException("Número de pessoas não deve ser maior que a capacidade do quarto");

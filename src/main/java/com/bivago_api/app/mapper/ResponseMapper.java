@@ -34,6 +34,7 @@ public class ResponseMapper {
     }
 
     public HotelResponseDTO toHotelResponseDTO(Hotel hotel) {
+        System.out.println("HotelStreet: " + hotel.getAddress().getStreet());
         return new HotelResponseDTO(
             hotel.getId(),
             hotel.getName(),

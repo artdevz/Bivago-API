@@ -40,6 +40,7 @@ public class HotelService {
     @Async
     public CompletableFuture<HotelResponseDTO> readById(UUID id) {
         Hotel hotel = finder.findByIdOrThrow(hotelR.findById(id), "Hotel não encontrado");
+        System.out.println("HotelStreet: " + hotel.getAddress().getStreet());
         return CompletableFuture.completedFuture(responseMapper.toHotelResponseDTO(hotel));
     }
 

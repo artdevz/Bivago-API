@@ -8,6 +8,7 @@ public class HotelEntityMapper {
     
     public static Hotel toDomain(HotelEntity entity) {
         if (entity == null) return null;
+        System.out.println("HotelE: " + entity.getAddress().getStreet());
         Hotel hotel = new Hotel(
             entity.getId(),
             entity.getName(),
@@ -15,6 +16,7 @@ public class HotelEntityMapper {
             entity.getAddress().toDomain(),
             UserEntityMapper.toDomain(entity.getOwner())
         );
+        System.out.println("HotelD: " + hotel.getAddress().getStreet());
         return hotel;
     }
 
