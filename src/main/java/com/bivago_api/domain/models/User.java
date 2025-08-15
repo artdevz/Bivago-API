@@ -89,9 +89,20 @@ public class User {
     }
 
     private void validateCPF(String cpf) {
-        if (cpf.length() != CPF_LENGTH) throw new IllegalArgumentException("Formato de CPF inválido");
+        if (cpf == null || cpf.length() != CPF_LENGTH || !cpf.matches("\\d+")) throw new IllegalArgumentException("Formato de CPF inválido");
 
-        // TO-DO Verificar o cálculo
+        int c1 = calculateDigit(cpf, 0, 10, 0);
+        int dv1 = (c1 % 11 < 2)? 0 : 11 - (c1 % 11);
+        if (dv1 != Character.getNumericValue(cpf.charAt(9))) throw new IllegalArgumentException("CPF Inválido");
+
+        if (11 - calculateDigit(cpf, 1, 10, 0) % 11 != Character.getNumericValue(cpf.charAt(10))) throw new IllegalArgumentException("CPF Inválido");
+    }
+
+    private int calculateDigit(String cpf, int index, int multipler, int result) {
+        if (multipler < 2) return result;
+        char number = cpf.charAt(index);
+        result += Character.getNumericValue(number) * multipler;
+        return calculateDigit(cpf, ++index, --multipler, result);
     }
 
 }

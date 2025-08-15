@@ -25,8 +25,8 @@ public class RoleService {
         System.out.println("RoleRequest: " + request.name());
         Role role = new Role(
             null,
-            request.name(),
-            request.description()
+            "ADMIN",
+            "BLABLABLA"
         );
 
         Role saved = roleR.save(role);
