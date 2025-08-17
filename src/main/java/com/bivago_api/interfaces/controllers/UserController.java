@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bivago_api.app.dto.user.UserDetailsDTO;
 import com.bivago_api.app.dto.user.UserRequestDTO;
 import com.bivago_api.app.dto.user.UserResponseDTO;
 import com.bivago_api.app.dto.user.UserUpdateDTO;
@@ -31,20 +32,16 @@ public class UserController {
     private final UserService userS;
     
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody @Valid UserRequestDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(userS.create(request)));
-    }
+    public ResponseEntity<String> create(@RequestBody @Valid UserRequestDTO request) { return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(userS.create(request))); }
 
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(userS.readAll())); }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(userS.readById(id))); }
+    public ResponseEntity<UserDetailsDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(userS.readById(id))); }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid UserUpdateDTO data) {
-        return ResponseEntity.ok(AsyncResultHandler.await(userS.update(id, data)));
-    }
+    public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid UserUpdateDTO data) { return ResponseEntity.ok(AsyncResultHandler.await(userS.update(id, data))); }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(userS.delete(id))); }

@@ -5,7 +5,7 @@ import com.bivago_api.infra.entities.RoomEntity;
 
 public class RoomEntityMapper {
 
-    public static Room toDomain(RoomEntity entity) {
+    public static Room toDomain(RoomEntity entity, boolean details) {
         if (entity == null) return null;
         Room room = new Room(
             entity.getId(),
@@ -13,8 +13,11 @@ public class RoomEntityMapper {
             entity.getCategory(),
             entity.getNumber(),
             entity.getPrice(),
-            HotelEntityMapper.toDomain(entity.getHost())
+            HotelEntityMapper.toDomain(entity.getHost(), false)
         );
+
+        if (details) room.getReservations().addAll(entity.getReservations().stream().map(ReservationEntityMapper::toDomain).toList());
+
         return room;
     }
 

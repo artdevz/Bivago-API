@@ -1,6 +1,7 @@
 package com.bivago_api.domain.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class Room {
     private BigDecimal price;
     private Hotel host;
 
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Room() {}
     public Room(
@@ -51,7 +52,6 @@ public class Room {
     }
     
     public void setNumber(int number) {
-        System.out.println("number" + number);
         if (number < 1) throw new IllegalArgumentException("Número do Quarto deve ser positivo absoluto");
         this.number = number;
     }

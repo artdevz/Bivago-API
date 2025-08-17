@@ -1,6 +1,7 @@
 package com.bivago_api.domain.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -22,8 +23,8 @@ public class User {
 
     private Set<Role> roles;
 
-    private List<Hotel> hotels;
-    private List<Reservation> reservations;
+    private List<Hotel> hotels = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
 
     public User() {}
     public User(

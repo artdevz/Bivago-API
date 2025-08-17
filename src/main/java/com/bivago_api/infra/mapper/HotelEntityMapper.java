@@ -6,17 +6,18 @@ import com.bivago_api.infra.entities.HotelEntity;
 
 public class HotelEntityMapper {
     
-    public static Hotel toDomain(HotelEntity entity) {
+    public static Hotel toDomain(HotelEntity entity, boolean details) {
         if (entity == null) return null;
-        System.out.println("HotelE: " + entity.getAddress().getStreet());
         Hotel hotel = new Hotel(
             entity.getId(),
             entity.getName(),
             entity.getScore(),
             entity.getAddress().toDomain(),
-            UserEntityMapper.toDomain(entity.getOwner())
+            UserEntityMapper.toDomain(entity.getOwner(), false)
         );
-        System.out.println("HotelD: " + hotel.getAddress().getStreet());
+
+        if (details) hotel.getRooms().addAll(entity.getRooms().stream().map(room -> RoomEntityMapper.toDomain(room, false)).toList());
+
         return hotel;
     }
 

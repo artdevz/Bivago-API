@@ -2,6 +2,7 @@ package com.bivago_api.domain.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Reservation {
@@ -28,7 +29,7 @@ public class Reservation {
         setCheckOut(checkOut);
         setRoom(room);
         setNop(nop);
-        setPrice(room.getPrice().multiply(BigDecimal.valueOf(nop)));
+        setPrice(room.getPrice().multiply(BigDecimal.valueOf(nop * getDays(checkIn, checkOut))));
         setGuest(guest);
     }
 
@@ -62,5 +63,7 @@ public class Reservation {
 
     public void setGuest(User guest) { this.guest = guest; }
     public void setRoom(Room room) { this.room = room; }
+
+    private int getDays(LocalDate checkIn, LocalDate checkOut) { return (int)ChronoUnit.DAYS.between(checkIn, checkOut); }
 
 }

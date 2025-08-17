@@ -31,9 +31,7 @@ public class ReservationController {
     private final ReservationService reservationS;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody @Valid ReservationRequestDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(reservationS.create(request)));
-    }
+    public ResponseEntity<String> create(@RequestBody @Valid ReservationRequestDTO request) { return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(reservationS.create(request))); }
 
     @GetMapping
     public ResponseEntity<List<ReservationResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readAll())); }
@@ -42,9 +40,7 @@ public class ReservationController {
     public ResponseEntity<ReservationResponseDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readById(id))); }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid ReservationUpdateDTO data) {
-        return ResponseEntity.ok(AsyncResultHandler.await(reservationS.update(id, data)));
-    }
+    public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid ReservationUpdateDTO data) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.update(id, data))); }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.delete(id))); }

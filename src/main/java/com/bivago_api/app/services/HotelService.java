@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.bivago_api.app.dto.hotel.HotelDetailsDTO;
 import com.bivago_api.app.dto.hotel.HotelRequestDTO;
 import com.bivago_api.app.dto.hotel.HotelResponseDTO;
 import com.bivago_api.app.dto.hotel.HotelUpdateDTO;
@@ -38,10 +39,14 @@ public class HotelService {
     public CompletableFuture<List<HotelResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(hotelR.findAll(), responseMapper::toHotelResponseDTO)); }
 
     @Async
-    public CompletableFuture<HotelResponseDTO> readById(UUID id) {
+    public CompletableFuture<HotelDetailsDTO> readById(UUID id) {
         Hotel hotel = finder.findByIdOrThrow(hotelR.findById(id), "Hotel não encontrado");
-        System.out.println("HotelStreet: " + hotel.getAddress().getStreet());
-        return CompletableFuture.completedFuture(responseMapper.toHotelResponseDTO(hotel));
+        return CompletableFuture.completedFuture(
+            new HotelDetailsDTO(
+                responseMapper.toHotelResponseDTO(hotel),
+                responseMapper.toResponseDTOList(hotel.getRooms(), responseMapper::toRoomResponseDTO)
+            )
+        );
     }
 
     @Async

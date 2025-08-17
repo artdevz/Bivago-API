@@ -22,11 +22,10 @@ public class RoleService {
 
     @Async
     public CompletableFuture<String> create(RoleRequestDTO request) {
-        System.out.println("RoleRequest: " + request.name());
         Role role = new Role(
             null,
-            "ADMIN",
-            "BLABLABLA"
+            request.name(),
+            request.description()
         );
 
         Role saved = roleR.save(role);

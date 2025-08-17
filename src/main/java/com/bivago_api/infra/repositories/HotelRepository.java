@@ -21,17 +21,17 @@ public class HotelRepository implements IHotelRepository {
     private final HotelJpaRepository jpa;
 
     @Override
-    public List<Hotel> findAll() { return jpa.findAll().stream().map(HotelEntityMapper::toDomain).toList(); }
+    public List<Hotel> findAll() { return jpa.findAll().stream().map(entity -> HotelEntityMapper.toDomain(entity, false)).toList(); }
 
     @Override
-    public Optional<Hotel> findById(UUID id) { return jpa.findById(id).map(HotelEntityMapper::toDomain); }
+    public Optional<Hotel> findById(UUID id) { return jpa.findById(id).map(entity -> HotelEntityMapper.toDomain(entity, true)); }
 
     @Override
     public Hotel save(Hotel hotel) {
         HotelEntity entity = HotelEntityMapper.toEntity(hotel);
         HotelEntity saved = jpa.save(entity);
 
-        return HotelEntityMapper.toDomain(saved);
+        return HotelEntityMapper.toDomain(saved, true);
     }
 
     @Override

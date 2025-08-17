@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bivago_api.app.dto.room.RoomDetailsDTO;
 import com.bivago_api.app.dto.room.RoomRequestDTO;
 import com.bivago_api.app.dto.room.RoomResponseDTO;
 import com.bivago_api.app.dto.room.RoomUpdateDTO;
@@ -31,20 +32,16 @@ public class RoomController {
     private final RoomService roomS;
     
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody @Valid RoomRequestDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(roomS.create(request)));
-    }
+    public ResponseEntity<String> create(@RequestBody @Valid RoomRequestDTO request) { return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(roomS.create(request))); }
 
     @GetMapping
     public ResponseEntity<List<RoomResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readAll())); }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoomResponseDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readById(id))); }
+    public ResponseEntity<RoomDetailsDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readById(id))); }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid RoomUpdateDTO data) {
-        return ResponseEntity.ok(AsyncResultHandler.await(roomS.update(id, data)));
-    }
+    public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid RoomUpdateDTO data) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.update(id, data))); }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.delete(id))); }

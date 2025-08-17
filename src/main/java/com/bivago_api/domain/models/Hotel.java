@@ -1,5 +1,6 @@
 package com.bivago_api.domain.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class Hotel {
     private Address address;
     private User owner;
 
-    private List<Room> rooms;
+    private List<Room> rooms = new ArrayList<>();
 
     public Hotel() {}
     public Hotel(

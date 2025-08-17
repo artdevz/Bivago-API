@@ -1,11 +1,14 @@
 package com.bivago_api.app.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.bivago_api.app.dto.reservation.ReservationRequestDTO;
 import com.bivago_api.app.dto.reservation.ReservationResponseDTO;
@@ -29,6 +32,7 @@ public class ReservationService {
 
     @Async
     public CompletableFuture<String> create(ReservationRequestDTO request) {
+        ensureCheckInIsBeforeCheckOut(request.checkIn(), request.checkOut());
         Reservation reservation = requestMapper.toReservation(request);
         Reservation saved = reservationR.save(reservation);
         return CompletableFuture.completedFuture("Sucesso ao criar reserva: " + saved.getId());
@@ -57,6 +61,10 @@ public class ReservationService {
 
         reservationR.deleteById(id);
         return CompletableFuture.completedFuture("Reserva deletada");
+    }
+
+    private void ensureCheckInIsBeforeCheckOut(LocalDate checkIn, LocalDate checkOut) {
+        if (checkOut.isBefore(checkIn)) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Check-In deve ser antes de Check-Out");
     }
 
 }

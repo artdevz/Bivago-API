@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.bivago_api.app.dto.room.RoomDetailsDTO;
 import com.bivago_api.app.dto.room.RoomRequestDTO;
 import com.bivago_api.app.dto.room.RoomResponseDTO;
 import com.bivago_api.app.dto.room.RoomUpdateDTO;
@@ -30,9 +31,7 @@ public class RoomService {
     @Async
     public CompletableFuture<String> create(RoomRequestDTO request) {
         Room room = requestMapper.toRoom(request);
-        System.out.println("RoomS" + room.getNumber());
         Room saved = roomR.save(room);
-        System.out.println("RoomSaved" + room.getNumber());
         return CompletableFuture.completedFuture("Sucesso ao criar quarto: " + saved.getId());
     }
 
@@ -40,9 +39,14 @@ public class RoomService {
     public CompletableFuture<List<RoomResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(roomR.findAll(), responseMapper::toRoomResponseDTO)); }
 
     @Async
-    public CompletableFuture<RoomResponseDTO> readById(UUID id) {
+    public CompletableFuture<RoomDetailsDTO> readById(UUID id) {
         Room room = finder.findByIdOrThrow(roomR.findById(id), "Quarto não encontrado");
-        return CompletableFuture.completedFuture(responseMapper.toRoomResponseDTO(room));
+        return CompletableFuture.completedFuture(
+            new RoomDetailsDTO(
+                responseMapper.toRoomResponseDTO(room),
+                responseMapper.toResponseDTOList(room.getReservations().stream().toList(), responseMapper::toReservationResponseDTO)
+            )
+        );
     }
 
     @Async

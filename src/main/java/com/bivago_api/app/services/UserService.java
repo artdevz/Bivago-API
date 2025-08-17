@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.bivago_api.app.dto.user.UserDetailsDTO;
 import com.bivago_api.app.dto.user.UserRequestDTO;
 import com.bivago_api.app.dto.user.UserResponseDTO;
 import com.bivago_api.app.dto.user.UserUpdateDTO;
@@ -43,9 +44,15 @@ public class UserService {
     public CompletableFuture<List<UserResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(userR.findAll(), responseMapper::toUserResponseDTO)); }
 
     @Async
-    public CompletableFuture<UserResponseDTO> readById(UUID id) {
+    public CompletableFuture<UserDetailsDTO> readById(UUID id) {
         User user = finder.findByIdOrThrow(userR.findById(id), "Usuário não encontrado");
-        return CompletableFuture.completedFuture(responseMapper.toUserResponseDTO(user));
+        return CompletableFuture.completedFuture(
+            new UserDetailsDTO(
+                responseMapper.toUserResponseDTO(user),
+                responseMapper.toResponseDTOList(user.getHotels().stream().toList(), responseMapper::toHotelResponseDTO),
+                responseMapper.toResponseDTOList(user.getReservations().stream().toList(), responseMapper::toReservationResponseDTO)
+            )
+        );
     }
 
     @Async

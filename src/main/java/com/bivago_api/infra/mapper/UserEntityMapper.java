@@ -7,7 +7,7 @@ import com.bivago_api.infra.entities.UserEntity;
 
 public class UserEntityMapper {
     
-    public static User toDomain(UserEntity entity) {
+    public static User toDomain(UserEntity entity, boolean details) {
         if (entity == null) return null;
         User user = new User(
             entity.getId(),
@@ -18,6 +18,12 @@ public class UserEntityMapper {
             entity.getBirthday(),
             entity.getRoles().stream().map(RoleEntityMapper::toDomain).collect(Collectors.toSet())
         );
+
+        if (details) {
+            user.getHotels().addAll(entity.getHotels().stream().map(hotel -> HotelEntityMapper.toDomain(hotel, false)).toList());
+            user.getReservations().addAll(entity.getReservations().stream().map(ReservationEntityMapper::toDomain).toList());
+        }
+
         return user;
     }
 

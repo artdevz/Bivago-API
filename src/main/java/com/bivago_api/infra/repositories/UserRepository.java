@@ -21,24 +21,24 @@ public class UserRepository implements IUserRepository {
     private final UserJpaRepository jpa;
 
     @Override
-    public List<User> findAll() { return jpa.findAll().stream().map(UserEntityMapper::toDomain).toList(); }
+    public List<User> findAll() { return jpa.findAll().stream().map(entity -> UserEntityMapper.toDomain(entity, false)).toList(); }
 
     @Override
-    public Optional<User> findById(UUID id) { return jpa.findById(id).map(UserEntityMapper::toDomain); }
+    public Optional<User> findById(UUID id) { return jpa.findById(id).map(entity -> UserEntityMapper.toDomain(entity, true)); }
 
     @Override
     public User save(User user) {
         UserEntity entity = UserEntityMapper.toEntity(user);
         UserEntity saved = jpa.save(entity);
 
-        return UserEntityMapper.toDomain(saved);
+        return UserEntityMapper.toDomain(saved, true);
     }
 
     @Override
     public void deleteById(UUID id) { jpa.deleteById(id); }
 
     @Override
-    public Optional<User> findByEmail(String email) { return jpa.findByEmail(email).map(UserEntityMapper::toDomain); }
+    public Optional<User> findByEmail(String email) { return jpa.findByEmail(email).map(entity -> UserEntityMapper.toDomain(entity, true)); }
 
 
 }
