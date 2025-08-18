@@ -39,11 +39,11 @@ public class RequestMapper {
     public User toUser(UserRequestDTO request) {
         return new User(
             null, // ID
-            request.name(),
-            request.email(),
-            request.password(),
-            request.cpf(),
-            request.birthday(),
+            request.signup().name(),
+            request.signup().email(),
+            request.signup().password(),
+            request.signup().cpf(),
+            request.signup().birthday(),
             findRoles(request.roles())
         );
     }

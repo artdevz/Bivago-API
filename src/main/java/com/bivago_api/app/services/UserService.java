@@ -33,8 +33,8 @@ public class UserService {
     
     @Async
     public CompletableFuture<String> create(UserRequestDTO request) {
-        ensureUniqueEmail(request.email());
-        ensureUniqueCPF(request.cpf());
+        ensureUniqueEmail(request.signup().email());
+        ensureUniqueCPF(request.signup().cpf());
         User user = requestMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User saved = userR.save(user);
