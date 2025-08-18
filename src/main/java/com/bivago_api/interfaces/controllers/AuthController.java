@@ -11,15 +11,19 @@ import com.bivago_api.app.dto.auth.AuthRefreshDTO;
 import com.bivago_api.app.dto.auth.AuthResponseDTO;
 import com.bivago_api.app.dto.auth.AuthSigninDTO;
 import com.bivago_api.app.dto.auth.AuthSignupDTO;
+import com.bivago_api.app.services.AuthService;
 import com.bivago_api.domain.models.User;
+import com.bivago_api.shared.utils.AsyncResultHandler;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-// @RequiredArgsConstructor
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    private final AuthService authS;
     
     @PostMapping("/signup")
     public ResponseEntity<AuthResponseDTO> signUp(@RequestBody @Valid AuthSignupDTO request) {
@@ -27,9 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<AuthResponseDTO> signIn(@RequestBody @Valid AuthSigninDTO request) {
-        return null;
-    }
+    public ResponseEntity<AuthResponseDTO> signIn(@RequestBody @Valid AuthSigninDTO request) { return ResponseEntity.ok(AsyncResultHandler.await(authS.signin(request))); }
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDTO> refresh(@RequestBody @Valid AuthRefreshDTO request) {

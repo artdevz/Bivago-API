@@ -37,10 +37,12 @@ public class JwtService {
     private final IUserRepository userR;
 
     public String generateAccessToken(User user) {
+        System.out.println("G");
         Map<String, Object> extraClaims = new HashMap<>();
         extraClaims.put("id", user.getId());
         extraClaims.put("name", user.getName());
         extraClaims.put("role", user.getRoles());
+        System.out.println("H");
 
         return Jwts.builder()
             .setClaims(extraClaims)

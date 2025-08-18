@@ -2,6 +2,7 @@ package com.bivago_api.domain.models;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class User {
     private String cpf;
     private LocalDate birthday;
 
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     private List<Hotel> hotels = new ArrayList<>();
     private List<Reservation> reservations = new ArrayList<>();
