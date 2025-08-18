@@ -34,6 +34,7 @@ public class UserService {
     @Async
     public CompletableFuture<String> create(UserRequestDTO request) {
         ensureUniqueEmail(request.email());
+        ensureUniqueCPF(request.cpf());
         User user = requestMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User saved = userR.save(user);
@@ -77,5 +78,6 @@ public class UserService {
     }
 
     private void ensureUniqueEmail(String email) { if (userR.findByEmail(email).isPresent()) throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já está sendo utilizado"); }
+    private void ensureUniqueCPF(String cpf) { if (userR.findByCpf(cpf).isPresent()) throw new ResponseStatusException(HttpStatus.CONFLICT, "CPF já está sendo utilizado"); }
 
 }

@@ -40,5 +40,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public Optional<User> findByEmail(String email) { return jpa.findByEmail(email).map(entity -> UserEntityMapper.toDomain(entity, true)); }
 
+    @Override
+    public Optional<User> findByCpf(String cpf) { return jpa.findByCpf(cpf).map(entity -> UserEntityMapper.toDomain(entity, true)); }
 
 }
