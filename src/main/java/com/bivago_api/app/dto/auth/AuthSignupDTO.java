@@ -17,6 +17,5 @@ public record AuthSignupDTO(
     @Password
     String password,
 
-    String cpf,
     LocalDate birthday
 ) {}

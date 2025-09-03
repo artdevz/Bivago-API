@@ -27,7 +27,6 @@ public class ResponseMapper {
             user.getId(),
             user.getName(),
             user.getEmail(),
-            user.getCPF(),
             user.getBirthday(),
             user.getRoles()
         );

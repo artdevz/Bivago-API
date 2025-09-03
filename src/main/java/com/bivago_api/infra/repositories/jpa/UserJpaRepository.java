@@ -11,7 +11,6 @@ import com.bivago_api.infra.entities.UserEntity;
 public interface UserJpaRepository extends JpaRepository<UserEntity, UUID> {
     
     Optional<UserEntity> findByEmail(String email);
-    Optional<UserEntity> findByCpf(String cpf);
 
     @EntityGraph(attributePaths = {"hotels", "reservations"})
     Optional<UserEntity> findById(UUID id);

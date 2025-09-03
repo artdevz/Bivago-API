@@ -42,7 +42,6 @@ public class RequestMapper {
             request.signup().name(),
             request.signup().email(),
             request.signup().password(),
-            request.signup().cpf(),
             request.signup().birthday(),
             findRoles(request.roles())
         );

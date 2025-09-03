@@ -12,14 +12,12 @@ public class User {
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
     private static final int MIN_NAME_LENGTH = 3;
     private static final int MAX_NAME_LENGTH = 64;
-    private static final int CPF_LENGTH = 11;
     private static final int MINIMAL_AGE = 18;
 
     private UUID id;
     private String name;
     private String email;
     private String password;
-    private String cpf;
     private LocalDate birthday;
 
     private Set<Role> roles = new HashSet<>();
@@ -33,7 +31,6 @@ public class User {
         String name,
         String email,
         String password,
-        String cpf,
         LocalDate birthday,
         Set<Role> roles
     ) {
@@ -41,7 +38,6 @@ public class User {
         setName(name);
         setEmail(email);
         setPassword(password);
-        setCPF(cpf);
         setBirthday(birthday);
         this.roles = roles;
     }
@@ -50,7 +46,6 @@ public class User {
     public String getName() { return name; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public String getCPF() { return cpf; }
     public LocalDate getBirthday() { return birthday; }
     public Set<Role> getRoles() { return roles; }
 
@@ -71,11 +66,6 @@ public class User {
         this.password = password; // Encoder vem antes, então não dá pra verificar nada aqui
     }
 
-    public void setCPF(String cpf) {
-        validateCPF(cpf);
-        this.cpf = cpf;
-    }
-
     public void setBirthday(LocalDate birthday) {   
         LocalDate today = LocalDate.now();
         LocalDate minAllowed = today.minusYears(MINIMAL_AGE);  
@@ -90,15 +80,15 @@ public class User {
         if (!(email.matches(EMAIL_REGEX))) throw new IllegalArgumentException("Formato de Email inválido");
     }
 
-    private void validateCPF(String cpf) {
-        if (cpf == null || cpf.length() != CPF_LENGTH || !cpf.matches("\\d+")) throw new IllegalArgumentException("Formato de CPF inválido");
+    // private void validateCPF(String cpf) {
+    //     if (cpf == null || cpf.length() != CPF_LENGTH || !cpf.matches("\\d+")) throw new IllegalArgumentException("Formato de CPF inválido");
 
-        int c1 = calculateDigit(cpf, 0, 10, 0);
-        int dv1 = (c1 % 11 < 2)? 0 : 11 - (c1 % 11);
-        if (dv1 != Character.getNumericValue(cpf.charAt(9))) throw new IllegalArgumentException("CPF Inválido");
+    //     int c1 = calculateDigit(cpf, 0, 10, 0);
+    //     int dv1 = (c1 % 11 < 2)? 0 : 11 - (c1 % 11);
+    //     if (dv1 != Character.getNumericValue(cpf.charAt(9))) throw new IllegalArgumentException("CPF Inválido");
 
-        if (11 - calculateDigit(cpf, 1, 10, 0) % 11 != Character.getNumericValue(cpf.charAt(10))) throw new IllegalArgumentException("CPF Inválido");
-    }
+    //     if (11 - calculateDigit(cpf, 1, 10, 0) % 11 != Character.getNumericValue(cpf.charAt(10))) throw new IllegalArgumentException("CPF Inválido");
+    // }
 
     private int calculateDigit(String cpf, int index, int multipler, int result) {
         if (multipler < 2) return result;

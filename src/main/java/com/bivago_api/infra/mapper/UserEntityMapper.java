@@ -14,7 +14,6 @@ public class UserEntityMapper {
             entity.getName(),
             entity.getEmail(),
             entity.getPassword(),
-            entity.getCpf(),
             entity.getBirthday(),
             entity.getRoles().stream().map(RoleEntityMapper::toDomain).collect(Collectors.toSet())
         );
@@ -34,7 +33,6 @@ public class UserEntityMapper {
         entity.setName(user.getName());
         entity.setEmail(user.getEmail());
         entity.setPassword(user.getPassword());
-        entity.setCpf(user.getCPF());
         entity.setBirthday(user.getBirthday());
         entity.setRoles(user.getRoles().stream().map(RoleEntityMapper::toEntity).collect(Collectors.toSet()));
 

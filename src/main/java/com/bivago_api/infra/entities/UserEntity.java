@@ -50,9 +50,6 @@ public class UserEntity implements UserDetails {
     
     private String password;
 
-    @Column(unique = true, nullable = false)
-    private String cpf;
-
     private LocalDate birthday;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -14,6 +14,5 @@ public interface IUserRepository {
     void deleteById(UUID id);
 
     Optional<User> findByEmail(String email);
-    Optional<User> findByCpf(String cpf);
 
 }
