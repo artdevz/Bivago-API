@@ -1,5 +1,6 @@
 package com.bivago_api.infra.repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,5 +37,10 @@ public class RoomRepository implements IRoomRepository {
 
     @Override
     public void deleteById(UUID id) { jpa.deleteById(id); }
+
+    @Override
+    public List<Room> findAllFiltered(BigDecimal maxPrice, Byte maxCapacity) {
+        return jpa.findFiltered(maxPrice, maxCapacity).stream().map(entity -> RoomEntityMapper.toDomain(entity, false)).toList();
+    }
 
 }

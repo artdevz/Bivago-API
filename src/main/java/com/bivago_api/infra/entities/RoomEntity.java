@@ -1,6 +1,7 @@
 package com.bivago_api.infra.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class RoomEntity {
     private UUID id;
 
     @Column(nullable = false)
-    private int capacity;
+    private byte capacity;
 
     private int category;
 
@@ -46,6 +47,6 @@ public class RoomEntity {
     private HotelEntity host;
 
     @OneToMany(mappedBy = "room")
-    private List<ReservationEntity> reservations;
+    private List<ReservationEntity> reservations = new ArrayList<>();
 
 }

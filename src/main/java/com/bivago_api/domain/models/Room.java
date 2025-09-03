@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Room {
     
     private UUID id;
-    private int capacity;
+    private byte capacity;
     private int category;
     private int number;
     private BigDecimal price;
@@ -19,7 +19,7 @@ public class Room {
     public Room() {}
     public Room(
         UUID id,
-        int capacity,
+        byte capacity,
         int category,
         int number,
         BigDecimal price,
@@ -34,7 +34,7 @@ public class Room {
     }
 
     public UUID getId() { return id; }
-    public int getCapacity() { return capacity; }
+    public byte getCapacity() { return capacity; }
     public int getCategory() { return category; }
     public int getNumber() { return number; }
     public BigDecimal getPrice() { return price; }
@@ -42,7 +42,7 @@ public class Room {
 
     public List<Reservation> getReservations() { return reservations; }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(byte capacity) {
         if (capacity < 1) throw new IllegalArgumentException("Capacidade do Quarto deve ser maior que Zero");
         this.capacity = capacity;
     }

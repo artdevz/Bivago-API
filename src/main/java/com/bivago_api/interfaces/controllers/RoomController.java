@@ -1,5 +1,6 @@
 package com.bivago_api.interfaces.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bivago_api.app.dto.room.RoomDetailsDTO;
@@ -35,7 +37,10 @@ public class RoomController {
     public ResponseEntity<String> create(@RequestBody @Valid RoomRequestDTO request) { return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(roomS.create(request))); }
 
     @GetMapping
-    public ResponseEntity<List<RoomResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readAll())); }
+    public ResponseEntity<List<RoomResponseDTO>> readAll(
+        @RequestParam(required = false) BigDecimal maxPrice,
+        @RequestParam(required = false) Byte maxCapacity
+    ) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readAll(maxPrice, maxCapacity))); }
 
     @GetMapping("/{id}")
     public ResponseEntity<RoomDetailsDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readById(id))); }

@@ -1,5 +1,6 @@
 package com.bivago_api.domain.repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,5 +13,7 @@ public interface IRoomRepository {
     Optional<Room> findById(UUID id);
     Room save(Room room);
     void deleteById(UUID id);
+
+    List<Room> findAllFiltered(BigDecimal maxPrice, Byte maxCapacity);
 
 }

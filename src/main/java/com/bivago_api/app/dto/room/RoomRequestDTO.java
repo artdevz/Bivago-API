@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Min;
 public record RoomRequestDTO(
 
     @Min(value = 1, message = "Quarto deve ter no mínimo 1 de capacidade")
-    int capacity,
+    byte capacity,
     
     int category,
 

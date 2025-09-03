@@ -1,5 +1,6 @@
 package com.bivago_api.app.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -36,7 +37,9 @@ public class RoomService {
     }
 
     @Async
-    public CompletableFuture<List<RoomResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(roomR.findAll(), responseMapper::toRoomResponseDTO)); }
+    public CompletableFuture<List<RoomResponseDTO>> readAll(BigDecimal maxPrice, Byte maxCapacity) {
+        return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(roomR.findAllFiltered(maxPrice, maxCapacity), responseMapper::toRoomResponseDTO)); 
+    }
 
     @Async
     public CompletableFuture<RoomDetailsDTO> readById(UUID id) {
