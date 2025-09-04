@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.bivago_api.domain.enums.Country;
 import com.bivago_api.domain.models.Room;
 
 public interface IRoomRepository {
@@ -14,6 +15,6 @@ public interface IRoomRepository {
     Room save(Room room);
     void deleteById(UUID id);
 
-    List<Room> findAllFiltered(BigDecimal maxPrice, Byte maxCapacity);
+    List<Room> findAllFiltered(Country country, String city, BigDecimal maxPrice, Byte maxCapacity);
 
 }

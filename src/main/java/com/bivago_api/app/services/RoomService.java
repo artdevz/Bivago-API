@@ -15,6 +15,7 @@ import com.bivago_api.app.dto.room.RoomUpdateDTO;
 import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.app.mapper.RequestMapper;
 import com.bivago_api.app.mapper.ResponseMapper;
+import com.bivago_api.domain.enums.Country;
 import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.repositories.IRoomRepository;
 
@@ -37,8 +38,8 @@ public class RoomService {
     }
 
     @Async
-    public CompletableFuture<List<RoomResponseDTO>> readAll(BigDecimal maxPrice, Byte maxCapacity) {
-        return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(roomR.findAllFiltered(maxPrice, maxCapacity), responseMapper::toRoomResponseDTO)); 
+    public CompletableFuture<List<RoomResponseDTO>> readAll(Country country, String city, BigDecimal maxPrice, Byte maxCapacity) {
+        return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(roomR.findAllFiltered(country, city, maxPrice, maxCapacity), responseMapper::toRoomResponseDTO)); 
     }
 
     @Async

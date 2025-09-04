@@ -1,8 +1,10 @@
 package com.bivago_api.domain.models.values;
 
+import com.bivago_api.domain.enums.Country;
+
 public class Address {
     
-    private String country;
+    private Country country;
     private String division;
     private String city;
 
@@ -11,7 +13,7 @@ public class Address {
     private int number;
 
     public Address() {}
-    public Address(String country, String division, String city, String neighbor, String street, int number) {
+    public Address(Country country, String division, String city, String neighbor, String street, int number) {
         setCountry(country);
         setDivision(division);
         setCity(city);
@@ -20,14 +22,14 @@ public class Address {
         setNumber(number);
     }
 
-    public String getCountry() { return country; }
+    public Country getCountry() { return country; }
     public String getDivsion() { return division; }
     public String getCity() { return city; }
     public String getNeighbor() { return neighbor; }
     public String getStreet() { return street; }
     public int getNumber() { return number; }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         // Colocar um Enum depois...
         this.country = country;
     }

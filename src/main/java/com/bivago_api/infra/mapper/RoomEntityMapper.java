@@ -1,6 +1,7 @@
 package com.bivago_api.infra.mapper;
 
 import com.bivago_api.domain.models.Room;
+import com.bivago_api.infra.embeddables.RoomFeaturesEmbeddable;
 import com.bivago_api.infra.entities.RoomEntity;
 
 public class RoomEntityMapper {
@@ -13,6 +14,7 @@ public class RoomEntityMapper {
             entity.getCategory(),
             entity.getNumber(),
             entity.getPrice(),
+            entity.getRoomFeatures().toDomain(),
             HotelEntityMapper.toDomain(entity.getHost(), false)
         );
 
@@ -29,6 +31,7 @@ public class RoomEntityMapper {
         entity.setCategory(room.getCategory());
         entity.setNumber(room.getNumber());
         entity.setPrice(room.getPrice());
+        entity.setRoomFeatures(RoomFeaturesEmbeddable.fromDomain(room.getRoomFeatures()));
         entity.setHost(HotelEntityMapper.toEntity(room.getHost()));
 
         return entity;

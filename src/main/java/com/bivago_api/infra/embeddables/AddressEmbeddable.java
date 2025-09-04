@@ -2,9 +2,13 @@ package com.bivago_api.infra.embeddables;
 
 import java.util.Objects;
 
+import com.bivago_api.domain.enums.Country;
 import com.bivago_api.domain.models.values.Address;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +21,14 @@ import lombok.Setter;
 @Embeddable
 public class AddressEmbeddable {
     
-    private String country;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Country country;
+
+    @Column(nullable = false)
     private String division;
+
+    @Column(nullable = false)
     private String city;
 
     private String neighbor;

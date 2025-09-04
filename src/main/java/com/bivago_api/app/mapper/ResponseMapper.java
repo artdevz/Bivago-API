@@ -49,7 +49,12 @@ public class ResponseMapper {
             room.getCategory(),
             room.getNumber(),
             room.getPrice(),
-            room.getHost().getId()
+            room.getRoomFeatures(),
+            room.getHost().getId(),
+            room.getHost().getAddress().getCountry(),
+            room.getHost().getAddress().getDivsion(),
+            room.getHost().getAddress().getCity(),
+            room.getHost().getScore()
         );
     }
 

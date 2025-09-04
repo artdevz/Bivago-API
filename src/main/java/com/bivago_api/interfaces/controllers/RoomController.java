@@ -21,6 +21,7 @@ import com.bivago_api.app.dto.room.RoomRequestDTO;
 import com.bivago_api.app.dto.room.RoomResponseDTO;
 import com.bivago_api.app.dto.room.RoomUpdateDTO;
 import com.bivago_api.app.services.RoomService;
+import com.bivago_api.domain.enums.Country;
 import com.bivago_api.shared.utils.AsyncResultHandler;
 
 import jakarta.validation.Valid;
@@ -28,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/rooms")
 public class RoomController {
 
     private final RoomService roomS;
@@ -38,9 +39,11 @@ public class RoomController {
 
     @GetMapping
     public ResponseEntity<List<RoomResponseDTO>> readAll(
+        @RequestParam(required = false) Country country,
+        @RequestParam(required = false) String city,
         @RequestParam(required = false) BigDecimal maxPrice,
         @RequestParam(required = false) Byte maxCapacity
-    ) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readAll(maxPrice, maxCapacity))); }
+    ) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readAll(country, city, maxPrice, maxCapacity))); }
 
     @GetMapping("/{id}")
     public ResponseEntity<RoomDetailsDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(roomS.readById(id))); }

@@ -64,6 +64,7 @@ public class RequestMapper {
             request.category(),
             request.number(),
             request.price(),
+            request.roomFeatures(),
             finder.findByIdOrThrow(hotelR.findById(request.host()), "Hotel não encontrado")
         );
     }

@@ -39,7 +39,6 @@ public class HotelEntity {
     private float score;
 
     @Embedded
-    @Column(nullable = false)
     private AddressEmbeddable address;
     
     @ManyToOne

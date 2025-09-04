@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
+import com.bivago_api.domain.enums.Country;
 import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.repositories.IRoomRepository;
 import com.bivago_api.infra.entities.RoomEntity;
@@ -39,8 +40,8 @@ public class RoomRepository implements IRoomRepository {
     public void deleteById(UUID id) { jpa.deleteById(id); }
 
     @Override
-    public List<Room> findAllFiltered(BigDecimal maxPrice, Byte maxCapacity) {
-        return jpa.findFiltered(maxPrice, maxCapacity).stream().map(entity -> RoomEntityMapper.toDomain(entity, false)).toList();
+    public List<Room> findAllFiltered(Country country, String city, BigDecimal maxPrice, Byte maxCapacity) {
+        return jpa.findFiltered(country, city, maxPrice, maxCapacity).stream().map(entity -> RoomEntityMapper.toDomain(entity, false)).toList();
     }
 
 }
