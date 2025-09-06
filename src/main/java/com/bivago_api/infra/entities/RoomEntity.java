@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.bivago_api.domain.enums.RoomType;
 import com.bivago_api.infra.embeddables.RoomFeaturesEmbeddable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,7 +40,8 @@ public class RoomEntity {
     @Column(nullable = false)
     private byte capacity;
 
-    private int category;
+    @Enumerated(EnumType.STRING)
+    private RoomType category;
 
     @Column(nullable = false)
     private int number;

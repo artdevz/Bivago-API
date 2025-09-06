@@ -20,7 +20,6 @@ import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.models.User;
 import com.bivago_api.domain.repositories.IHotelRepository;
 import com.bivago_api.domain.repositories.IRoleRepository;
-import com.bivago_api.domain.repositories.IRoomRepository;
 import com.bivago_api.domain.repositories.IUserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ public class RequestMapper {
 
     private final IUserRepository userR;
     private final IHotelRepository hotelR;
-    private final IRoomRepository roomR;
     private final IRoleRepository roleR;
 
     public User toUser(UserRequestDTO request) {
@@ -69,14 +67,14 @@ public class RequestMapper {
         );
     }
 
-    public Reservation toReservation(ReservationRequestDTO request) {
+    public Reservation toReservation(ReservationRequestDTO request, Room room) {
         return new Reservation(
             null, // ID
             request.checkIn(),
             request.checkOut(),
             request.nop(),
             finder.findByIdOrThrow(userR.findById(request.guest()), "Usuário não encontrado"),
-            finder.findByIdOrThrow(roomR.findById(request.room()), "Quarto não encontrado")
+            room
         );
     }
 

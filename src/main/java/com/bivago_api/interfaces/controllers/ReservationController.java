@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bivago_api.app.dto.reservation.ReservationRequestDTO;
@@ -34,7 +35,9 @@ public class ReservationController {
     public ResponseEntity<String> create(@RequestBody @Valid ReservationRequestDTO request) { return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(reservationS.create(request))); }
 
     @GetMapping
-    public ResponseEntity<List<ReservationResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readAll())); }
+    public ResponseEntity<List<ReservationResponseDTO>> readAll(
+        @RequestParam(required = false) UUID user
+    ) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readAll(user))); }
 
     @GetMapping("/{id}")
     public ResponseEntity<ReservationResponseDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(reservationS.readById(id))); }

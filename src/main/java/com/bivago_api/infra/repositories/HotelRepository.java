@@ -36,5 +36,7 @@ public class HotelRepository implements IHotelRepository {
 
     @Override
     public void deleteById(UUID id) { jpa.deleteById(id); }
+
+    public List<Hotel> findFiltered(UUID user) { return jpa.findFiltered(user).stream().map(entity -> HotelEntityMapper.toDomain(entity, false)).toList(); }
     
 }

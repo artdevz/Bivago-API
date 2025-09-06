@@ -1,6 +1,7 @@
 package com.bivago_api.infra.repositories.jpa;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.bivago_api.domain.enums.Country;
+import com.bivago_api.domain.enums.RoomType;
 import com.bivago_api.infra.entities.RoomEntity;
 
 public interface RoomJpaRepository extends JpaRepository<RoomEntity, UUID> {
@@ -32,6 +34,30 @@ public interface RoomJpaRepository extends JpaRepository<RoomEntity, UUID> {
         @Param("city") String city,
         @Param("maxPrice") BigDecimal maxPrice,
         @Param("maxCapacity") Byte maxCapacity
+    );
+
+    @Query("""
+        SELECT r FROM Room r
+        WHERE (r.host.id = :hotel)     
+    """)
+    List<RoomEntity> findByHotel(@Param("hotel") UUID hotel);
+
+    @Query("""
+        SELECT r FROM Room r
+        WHERE (r.host.id = :hotel 
+        AND r.category = :category)
+        AND NOT EXISTS (
+            SELECT 1 FROM Reservation res
+            WHERE res.room.id = r.id
+            AND res.checkIn < :checkOut
+            AND res.checkOut > :checkIn
+        )
+    """)
+    List<RoomEntity> findAvailableRooms(
+        @Param("hotel") UUID hotel,
+        @Param("category") RoomType category,
+        @Param("checkIn") LocalDate checkIn,
+        @Param("checkOut") LocalDate checkOut
     );
 
 }

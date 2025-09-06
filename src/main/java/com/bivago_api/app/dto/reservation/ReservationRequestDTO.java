@@ -3,6 +3,8 @@ package com.bivago_api.app.dto.reservation;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.bivago_api.domain.enums.RoomType;
+
 import jakarta.validation.constraints.Min;
 
 public record ReservationRequestDTO(
@@ -15,6 +17,8 @@ public record ReservationRequestDTO(
     int nop,
 
     UUID guest,
-
-    UUID room
+    
+    RoomType roomType,
+    
+    UUID hotel
 ) {}

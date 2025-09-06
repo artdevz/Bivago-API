@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bivago_api.app.dto.hotel.HotelDetailsDTO;
@@ -35,7 +36,9 @@ public class HotelController {
     public ResponseEntity<String> create(@RequestBody @Valid HotelRequestDTO request) { return ResponseEntity.status(HttpStatus.CREATED).body(AsyncResultHandler.await(hotelS.create(request))); }
 
     @GetMapping
-    public ResponseEntity<List<HotelResponseDTO>> readAll() { return ResponseEntity.ok(AsyncResultHandler.await(hotelS.readAll())); }
+    public ResponseEntity<List<HotelResponseDTO>> readAll(
+        @RequestParam(required = false) UUID user
+    ) { return ResponseEntity.ok(AsyncResultHandler.await(hotelS.readAll(user))); }
 
     @GetMapping("/{id}")
     public ResponseEntity<HotelDetailsDTO> readById(@PathVariable UUID id) { return ResponseEntity.ok(AsyncResultHandler.await(hotelS.readById(id))); }

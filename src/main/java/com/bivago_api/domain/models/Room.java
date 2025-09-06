@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.bivago_api.domain.enums.RoomType;
 import com.bivago_api.domain.models.values.RoomFeatures;
 
 public class Room {
     
     private UUID id;
     private byte capacity;
-    private int category;
+    private RoomType category;
     private int number;
     private BigDecimal price;
     private RoomFeatures roomFeatures;
@@ -23,7 +24,7 @@ public class Room {
     public Room(
         UUID id,
         byte capacity,
-        int category,
+        RoomType category,
         int number,
         BigDecimal price,
         RoomFeatures roomFeatures,
@@ -40,7 +41,7 @@ public class Room {
 
     public UUID getId() { return id; }
     public byte getCapacity() { return capacity; }
-    public int getCategory() { return category; }
+    public RoomType getCategory() { return category; }
     public int getNumber() { return number; }
     public BigDecimal getPrice() { return price; }
     public RoomFeatures getRoomFeatures() { return roomFeatures; }
@@ -53,7 +54,7 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(RoomType category) {
         this.category = category;
     }
     

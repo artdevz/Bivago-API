@@ -13,4 +13,7 @@ public interface IReservationRepository {
     Reservation save(Reservation reservation);
     void deleteById(UUID id);
 
+    List<Reservation> findAllFiltered(UUID user);
+    List<Reservation> findByRoom(UUID room);
+
 }

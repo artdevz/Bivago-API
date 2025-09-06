@@ -36,7 +36,9 @@ public class HotelService {
     }
 
     @Async
-    public CompletableFuture<List<HotelResponseDTO>> readAll() { return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(hotelR.findAll(), responseMapper::toHotelResponseDTO)); }
+    public CompletableFuture<List<HotelResponseDTO>> readAll(UUID user) { 
+        return CompletableFuture.completedFuture(responseMapper.toResponseDTOList(hotelR.findFiltered(user), responseMapper::toHotelResponseDTO)); 
+    }
 
     @Async
     public CompletableFuture<HotelDetailsDTO> readById(UUID id) {

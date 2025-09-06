@@ -37,4 +37,14 @@ public class ReservationRepository implements IReservationRepository {
     @Override
     public void deleteById(UUID id) { jpa.deleteById(id); }
 
+    @Override
+    public List<Reservation> findAllFiltered(UUID user) {
+        return jpa.findFiltered(user).stream().map(ReservationEntityMapper::toDomain).toList();
+    }
+
+    @Override
+    public List<Reservation> findByRoom(UUID room) {
+        return jpa.findByRoom(room).stream().map(ReservationEntityMapper::toDomain).toList();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.bivago_api.infra.repositories;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,6 +9,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
 import com.bivago_api.domain.enums.Country;
+import com.bivago_api.domain.enums.RoomType;
 import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.repositories.IRoomRepository;
 import com.bivago_api.infra.entities.RoomEntity;
@@ -42,6 +44,16 @@ public class RoomRepository implements IRoomRepository {
     @Override
     public List<Room> findAllFiltered(Country country, String city, BigDecimal maxPrice, Byte maxCapacity) {
         return jpa.findFiltered(country, city, maxPrice, maxCapacity).stream().map(entity -> RoomEntityMapper.toDomain(entity, false)).toList();
+    }
+
+    @Override
+    public List<Room> findByHotel(UUID hotel) {
+        return jpa.findByHotel(hotel).stream().map(entity -> RoomEntityMapper.toDomain(entity, false)).toList();
+    }
+
+    @Override
+    public List<Room> findAvailableRooms(UUID hotel, RoomType category, LocalDate checkIn, LocalDate checkOut) {
+        return jpa.findAvailableRooms(hotel, category, checkIn, checkOut).stream().map(entity -> RoomEntityMapper.toDomain(entity, false)).toList();
     }
 
 }
