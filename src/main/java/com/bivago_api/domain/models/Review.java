@@ -26,8 +26,8 @@ public class Review {
         this.id = id;
         setRating(rating);
         setComment(comment);
-        setReservation(reservation);
         setUser(user);
+        setReservation(reservation);
     }
 
     public UUID getId() { return id; }
@@ -48,6 +48,7 @@ public class Review {
     
     public void setReservation(Reservation reservation) {
         if (reservation.getCheckOut().isAfter(LocalDate.now())) throw new IllegalArgumentException("Avaliação só deve ser feita depois do Checkout");
+        if (!reservation.getGuest().getId().equals(this.user.getId())) throw new IllegalArgumentException("ID do Usuário avaliando deve ser o mesmo ID do usuário da Reserva");
         this.reservation = reservation;
     }
 

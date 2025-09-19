@@ -38,6 +38,8 @@ public class HotelEntity {
     
     private float score;
 
+    private int avaliables;
+
     @Embedded
     private AddressEmbeddable address;
     

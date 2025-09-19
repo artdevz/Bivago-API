@@ -8,6 +8,7 @@ public record HotelResponseDTO(
     UUID id,
     String name,
     float score,
+    int availables,
     Address address,
     UUID owner
 ) {}

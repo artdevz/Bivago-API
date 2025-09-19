@@ -14,6 +14,7 @@ public class Hotel {
     private UUID id;
     private String name;
     private float score;
+    private int availables;
     private Address address;
     private User owner;
 
@@ -24,12 +25,14 @@ public class Hotel {
         UUID id,
         String name,
         float score,
+        int availables,
         Address address,
         User owner
     ) {
         this.id = id;
         setName(name);
         setScore(score);
+        setAvaliables(availables);
         setAddress(address);
         setOwner(owner);
     }
@@ -37,6 +40,7 @@ public class Hotel {
     public UUID getId() { return id; }
     public String getName() { return name; }
     public float getScore() { return score; }
+    public int getAvaliables() { return availables; }
     public Address getAddress() { return address; }
     public User getOwner() { return owner; }
 
@@ -50,6 +54,11 @@ public class Hotel {
     public void setScore(float score) {
         if (score < MIN_SCORE || score > MAX_SCORE) throw new IllegalArgumentException("Pontuação deve está entre " + MIN_SCORE + " e " + MAX_SCORE + " pontos");
         this.score = score;
+    }
+
+    public void setAvaliables(int avaliables) {
+        if (avaliables < 0) throw new IllegalArgumentException("Total de Avaliações não deve ser negativo");
+        this.availables = avaliables;
     }
 
     public void setAddress(Address address) { this.address = address; }

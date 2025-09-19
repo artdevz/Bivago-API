@@ -54,6 +54,7 @@ public class RequestMapper {
             null, // ID
             request.name(),
             5.0f,
+            0,
             request.address(),
             finder.findByIdOrThrow(userR.findById(request.owner()), "Usuário não encontrado")
         );

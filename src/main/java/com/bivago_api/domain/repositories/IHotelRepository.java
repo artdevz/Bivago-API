@@ -13,6 +13,7 @@ public interface IHotelRepository {
     Hotel save(Hotel hotel);
     void deleteById(UUID id);
 
-    public List<Hotel> findFiltered(UUID user);
+    List<Hotel> findFiltered(UUID user);
+    void updateAvarageRating(UUID id, int rating);
 
 }

@@ -12,6 +12,7 @@ public class HotelEntityMapper {
             entity.getId(),
             entity.getName(),
             entity.getScore(),
+            entity.getAvaliables(),
             entity.getAddress().toDomain(),
             UserEntityMapper.toDomain(entity.getOwner(), false)
         );
@@ -27,6 +28,7 @@ public class HotelEntityMapper {
         entity.setId(hotel.getId());
         entity.setName(hotel.getName());
         entity.setScore(hotel.getScore());
+        entity.setAvaliables(hotel.getAvaliables());
         entity.setAddress(AddressEmbeddable.fromDomain(hotel.getAddress()));
         entity.setOwner(UserEntityMapper.toEntity(hotel.getOwner()));
 

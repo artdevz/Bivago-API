@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bivago_api.app.dto.review.ReviewRequestDTO;
 import com.bivago_api.app.dto.review.ReviewResponseDTO;
@@ -14,6 +15,7 @@ import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.app.mapper.RequestMapper;
 import com.bivago_api.app.mapper.ResponseMapper;
 import com.bivago_api.domain.models.Review;
+import com.bivago_api.domain.repositories.IHotelRepository;
 import com.bivago_api.domain.repositories.IReviewRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -27,10 +29,14 @@ public class ReviewService {
     private final ResponseMapper responseMapper;
     private final EntityFinder finder;
 
+    private final IHotelRepository hotelR;
+
+    @Transactional
     @Async
     public CompletableFuture<String> create(ReviewRequestDTO request) {
         Review review = requestMapper.toReview(request);
         Review saved = reviewR.save(review);
+        hotelR.updateAvarageRating(saved.getReservation().getRoom().getHost().getId(), saved.getRating());
         return CompletableFuture.completedFuture("Sucesso ao criar avaliação: " + saved.getId());
     }
 

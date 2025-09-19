@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -23,5 +24,14 @@ public interface HotelJpaRepository extends JpaRepository<HotelEntity, UUID> {
     List<HotelEntity> findFiltered(
         @Param("user") UUID user
     );
+
+    @Modifying
+    @Query("""
+        UPDATE Hotel h
+        SET h.avaliables = h.avaliables + 1,
+            h.score = ((h.score * h.avaliables) + :rating) / (h.avaliables + 1)
+        WHERE h.id = :id     
+    """)
+    void updateAvarageRating(@Param("id") UUID id, @Param("rating") int rating);
 
 }

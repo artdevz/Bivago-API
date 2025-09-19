@@ -39,6 +39,7 @@ public class ResponseMapper {
             hotel.getId(),
             hotel.getName(),
             hotel.getScore(),
+            hotel.getAvaliables(),
             hotel.getAddress(),
             hotel.getOwner().getId()
         );
