@@ -63,6 +63,9 @@ public class UserEntity implements UserDetails {
     @OneToMany(mappedBy = "guest")
     private List<ReservationEntity> reservations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<ReviewEntity> reviews = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (roles == null || roles.isEmpty()) return List.of();

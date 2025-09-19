@@ -10,15 +10,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.bivago_api.app.dto.hotel.HotelRequestDTO;
 import com.bivago_api.app.dto.reservation.ReservationRequestDTO;
+import com.bivago_api.app.dto.review.ReviewRequestDTO;
 import com.bivago_api.app.dto.room.RoomRequestDTO;
 import com.bivago_api.app.dto.user.UserRequestDTO;
 import com.bivago_api.app.helpers.EntityFinder;
 import com.bivago_api.domain.models.Hotel;
 import com.bivago_api.domain.models.Reservation;
+import com.bivago_api.domain.models.Review;
 import com.bivago_api.domain.models.Role;
 import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.models.User;
 import com.bivago_api.domain.repositories.IHotelRepository;
+import com.bivago_api.domain.repositories.IReservationRepository;
 import com.bivago_api.domain.repositories.IRoleRepository;
 import com.bivago_api.domain.repositories.IUserRepository;
 
@@ -33,6 +36,7 @@ public class RequestMapper {
     private final IUserRepository userR;
     private final IHotelRepository hotelR;
     private final IRoleRepository roleR;
+    private final IReservationRepository reservationR;
 
     public User toUser(UserRequestDTO request) {
         return new User(
@@ -75,6 +79,16 @@ public class RequestMapper {
             request.nop(),
             finder.findByIdOrThrow(userR.findById(request.guest()), "Usuário não encontrado"),
             room
+        );
+    }
+
+    public Review toReview(ReviewRequestDTO request) {
+        return new Review(
+            null, // ID
+            request.rating(),
+            request.comment(),
+            finder.findByIdOrThrow(reservationR.findById(request.reservation()), "Reserva não encontrada"),
+            finder.findByIdOrThrow(userR.findById(request.user()), "Usuário não encontrado")
         );
     }
 

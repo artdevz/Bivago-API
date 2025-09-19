@@ -1,7 +1,5 @@
 package com.bivago_api.infra.entities;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -22,36 +20,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Reservation")
-@Table(name = "reservations")
-public class ReservationEntity {
+@Entity(name = "Review")
+@Table(name = "reviews")
+public class ReviewEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false)
-    private LocalDate checkIn;
+    private int rating;
 
-    @Column(nullable = false)
-    private LocalDate checkOut;
-
-    @Column(nullable = false)
-    private int nop;
-
-    @Column(nullable = false)
-    private BigDecimal price;
-
-    @OneToOne
-    @JoinColumn(name = "review_id", referencedColumnName = "id", nullable = true)
-    private ReviewEntity review;
+    private String comment;
+    
+    @OneToOne(mappedBy = "review")
+    private ReservationEntity reservation;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UserEntity guest;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id", referencedColumnName = "id", nullable = false)
-    private RoomEntity room;
+    private UserEntity user;
 
 }

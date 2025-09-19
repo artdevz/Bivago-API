@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 
 import com.bivago_api.app.dto.hotel.HotelResponseDTO;
 import com.bivago_api.app.dto.reservation.ReservationResponseDTO;
+import com.bivago_api.app.dto.review.ReviewResponseDTO;
 import com.bivago_api.app.dto.room.RoomResponseDTO;
 import com.bivago_api.app.dto.user.UserResponseDTO;
 import com.bivago_api.domain.models.Hotel;
 import com.bivago_api.domain.models.Reservation;
+import com.bivago_api.domain.models.Review;
 import com.bivago_api.domain.models.Room;
 import com.bivago_api.domain.models.User;
 
@@ -67,6 +69,16 @@ public class ResponseMapper {
             reservation.getPrice(),
             reservation.getGuest().getId(),
             reservation.getRoom().getId()
+        );
+    }
+
+    public ReviewResponseDTO toReviewResponseDTO(Review review) {
+        return new ReviewResponseDTO(
+            review.getId(),
+            review.getRating(),
+            review.getComment(),
+            review.getReservation().getId(),
+            review.getUser().getId()
         );
     }
 
